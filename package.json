@@ -1,0 +1,35 @@
+{
+  "name": "tic-tac-toe-mvc",
+  "version": "0.0.1",
+  "description": "MV* with a bit more logic",
+  "scripts": {
+    "test": "mocha --require ts-node/register test/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scato/tic-tac-toe-mvc.git"
+  },
+  "keywords": [
+    "mvc"
+  ],
+  "author": "Scato Eggen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scato/tic-tac-toe-mvc/issues"
+  },
+  "homepage": "https://github.com/scato/tic-tac-toe-mvc#readme",
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.3.3",
+    "mocha-loader": "^0.7.1",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0",
+    "webpack": "^1.12.2"
+  },
+  "dependencies": {
+    "ts-node": "^0.4.0",
+    "tsd": "^0.6.5",
+    "typescript": "^1.6.2"
+  }
+}
