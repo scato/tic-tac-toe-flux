@@ -15,7 +15,9 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.ts$/, loader: 'ts-loader' },
-            { test: /sinon/, loader: "imports?define=>false,require=>false" }
+            { test: /sinon/, loader: "imports?define=>false,require=>false" },
+            { test: /\.js$/, loader: "eslint-loader", exclude: /node_modules/ },
+            { test: /\.ts$/, loader: "tslint-loader" }
         ]
     }
 };
