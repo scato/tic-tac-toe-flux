@@ -7,11 +7,11 @@ export default class Space {
         return this._markedBy !== undefined;
     }
 
-    markedBy(player: Player): boolean {
+    public markedBy(player: Player): boolean {
         return this._markedBy === player;
     }
 
-    mark(player: Player): void {
+    public mark(player: Player): void {
         this._markedBy = player;
     }
 }

@@ -7,7 +7,7 @@ import Row from '../../src/model/row';
 import Space from '../../src/model/space';
 
 describe('BoardHelper', () => {
-    var subject: BoardHelper, board: Board, boardMock: Sinon.SinonMock, space: Space;
+    let subject: BoardHelper, board: Board, boardMock: Sinon.SinonMock, space: Space;
 
     beforeEach(() => {
         board = new Board();

@@ -2,10 +2,9 @@
 import {expect} from 'chai';
 import Board from '../../src/model/board';
 import Space from '../../src/model/space';
-import Row from '../../src/model/row';
 
 describe('Board', () => {
-    var subject: Board;
+    let subject: Board;
 
     beforeEach(() => {
         subject = new Board();

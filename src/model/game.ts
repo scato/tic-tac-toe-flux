@@ -29,13 +29,13 @@ export default class Game {
         return this._board;
     }
 
-    mark(player: Player, x: number, y: number): void {
+    public mark(player: Player, x: number, y: number): void {
         if (player !== this._currentPlayer) {
             throw new Error('It\'s not this players turn');
         }
 
         this._board.spaceAt(x, y).mark(player);
 
-        this._currentPlayer = this._players.filter(player => player !== this._currentPlayer)[0];
+        this._currentPlayer = this._players.filter(p => p !== this._currentPlayer)[0];
     }
 }

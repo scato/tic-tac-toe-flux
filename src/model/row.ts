@@ -8,7 +8,7 @@ export default class Row {
         this._spaces = spaces;
     }
 
-    markedBy(player: Player):boolean {
+    public markedBy(player: Player): boolean {
         return this._spaces.every(space => space.markedBy(player));
     }
 }

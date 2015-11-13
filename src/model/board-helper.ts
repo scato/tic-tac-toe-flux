@@ -8,7 +8,7 @@ export default class BoardHelper {
         this._board = board;
     }
 
-    horizontalRowAt(y: number): Row {
+    public horizontalRowAt(y: number): Row {
         if (0 <= y && y < Board.SIZE) {
             return new Row([
                 this._board.spaceAt(0, y),
@@ -20,7 +20,7 @@ export default class BoardHelper {
         throw new RangeError('Out of range');
     }
 
-    verticalRowAt(x: number): Row {
+    public verticalRowAt(x: number): Row {
         if (0 <= x && x < Board.SIZE) {
             return new Row([
                 this._board.spaceAt(x, 0),
@@ -32,7 +32,7 @@ export default class BoardHelper {
         throw new RangeError('Out of range');
     }
 
-    diagonalRowAt(d: number): Row {
+    public diagonalRowAt(d: number): Row {
         if (d === -1 || d === 1) {
             return new Row([
                 this._board.spaceAt(0, 1 - d),

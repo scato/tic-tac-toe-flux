@@ -3,7 +3,7 @@ import {expect} from 'chai';
 import Player from '../../src/model/player';
 
 describe('Player', () => {
-    var subject: Player;
+    let subject: Player;
 
     beforeEach(() => {
         subject = new Player('X');

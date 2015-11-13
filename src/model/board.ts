@@ -1,4 +1,3 @@
-import Row from './row';
 import Space from './space';
 
 export default class Board {
@@ -22,7 +21,7 @@ export default class Board {
         return Board.SIZE;
     }
 
-    spaceAt(x: number, y: number): Space {
+    public spaceAt(x: number, y: number): Space {
         if (0 <= x && x < Board.SIZE) {
             if (0 <= y && y < Board.SIZE) {
                 return this._spaces[x][y];

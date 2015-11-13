@@ -6,7 +6,7 @@ import Space from '../../src/model/space';
 import Row from '../../src/model/row';
 
 describe('Row', () => {
-    var subject: Row,
+    let subject: Row,
         spaceOne: any,
         spaceTwo: any,
         spaceThree: any,

@@ -4,7 +4,7 @@ import Space from '../../src/model/space';
 import Player from '../../src/model/player';
 
 describe('Space', () => {
-    var subject: Space, playerOne: Player, playerTwo: Player;
+    let subject: Space, playerOne: Player, playerTwo: Player;
 
     beforeEach(() => {
         subject = new Space();
