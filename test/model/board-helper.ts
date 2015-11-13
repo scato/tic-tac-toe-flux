@@ -1,7 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 import {expect} from 'chai';
 import {mock, createStubInstance} from 'sinon';
-import sinonChai = require('sinon-chai');
 import BoardHelper from '../../src/model/board-helper';
 import Board from '../../src/model/board';
 import Row from '../../src/model/row';

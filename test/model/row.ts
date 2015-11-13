@@ -1,7 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 import {expect} from 'chai';
 import {createStubInstance} from 'sinon';
-import sinonChai = require('sinon-chai');
 import Player from '../../src/model/player';
 import Space from '../../src/model/space';
 import Row from '../../src/model/row';
