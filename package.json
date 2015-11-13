@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "MV* with a bit more logic",
   "scripts": {
-    "test": "mocha --require ts-node/register test/**/*.ts"
+    "test": "webpack && mocha build/test.js",
+    "accept": "cucumber-js --compiler ts:ts-node/register"
   },
   "repository": {
     "type": "git",
@@ -20,11 +21,11 @@
   "homepage": "https://github.com/scato/tic-tac-toe-mvc#readme",
   "devDependencies": {
     "chai": "^3.4.0",
-    "karma-webpack": "^1.7.0",
+    "cucumber": "^0.9.0",
+    "imports-loader": "^0.6.5",
     "mocha": "^2.3.3",
-    "mocha-loader": "^0.7.1",
     "sinon": "^1.17.2",
-    "sinon-chai": "^2.8.0",
+    "ts-loader": "^0.7.1",
     "webpack": "^1.12.2"
   },
   "dependencies": {
