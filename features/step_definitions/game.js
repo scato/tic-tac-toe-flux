@@ -20,4 +20,23 @@ module.exports = function () {
 
         callback();
     });
-}
+
+    this.Then(/^I see a board with (\d+) marked space(?:s?)$/, function (expected, callback) {
+        var board = this.gameStore.game.board;
+        var actual = 0;
+
+        for (var x = 0; x < board.width; x++) {
+            for (var y = 0; y < board.height; y++) {
+                if (board.spaceAt(x, y).marked) {
+                    actual += 1;
+                }
+            }
+        }
+
+        if (actual === Number(expected)) {
+            callback();
+        } else {
+            callback(new Error('Expected ' + expected + ' space(s) to be marked, found ' + actual));
+        }
+    });
+};

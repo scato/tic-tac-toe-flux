@@ -6,3 +6,7 @@ Feature: start a game
   Scenario: choosing to go first
     When I choose to be player "X"
     Then I see an empty board
+
+  Scenario: choosing to go second
+    When I choose to be player "O"
+    Then I see a board with 1 marked space
