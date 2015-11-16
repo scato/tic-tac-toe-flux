@@ -12,7 +12,10 @@ export default class Space {
     }
 
     public mark(player: Player): void {
+        if (this.marked) {
+            throw new Error('Space is already marked');
+        }
+
         this._markedBy = player;
     }
 }
-

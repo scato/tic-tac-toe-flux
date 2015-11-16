@@ -5,9 +5,10 @@ import BoardHelper from '../../src/model/board-helper';
 import Board from '../../src/model/board';
 import Row from '../../src/model/row';
 import Space from '../../src/model/space';
+import SinonMock = Sinon.SinonMock;
 
 describe('BoardHelper', () => {
-    let subject: BoardHelper, board: Board, boardMock: Sinon.SinonMock, space: Space;
+    let subject: BoardHelper, board: Board, boardMock: SinonMock, space: Space;
 
     beforeEach(() => {
         board = new Board();

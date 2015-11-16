@@ -1,6 +1,7 @@
 /// <reference path="../../typings/tsd.d.ts" />
 import {expect} from 'chai';
 import Game from '../../src/model/game';
+import Move from '../../src/model/move';
 
 describe('Game', () => {
     let subject: Game;
@@ -18,16 +19,16 @@ describe('Game', () => {
     it('lets players mark spaces', () => {
         expect(subject.board.spaceAt(0, 0).marked).to.equal(false);
 
-        subject.mark(subject.players[0], 0, 0);
+        subject.performMove(subject.players[0], new Move(0, 0));
         expect(subject.board.spaceAt(0, 0).marked).to.equal(true);
     });
 
     it('lets players take turns marking the spaces', () => {
         expect(subject.currentPlayer).to.equal(subject.players[0]);
 
-        subject.mark(subject.players[0], 0, 0);
+        subject.performMove(subject.players[0], new Move(0, 0));
         expect(subject.currentPlayer).to.equal(subject.players[1]);
 
-        expect(() => subject.mark(subject.players[0], 1, 0)).to.throw(Error);
+        expect(() => subject.performMove(subject.players[0], new Move(1, 0))).to.throw(Error);
     });
 });

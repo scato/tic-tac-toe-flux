@@ -25,5 +25,10 @@ describe('Space', () => {
         expect(subject.markedBy(playerOne)).to.equal(true);
         expect(subject.markedBy(playerTwo)).to.equal(false);
     });
+
+    it('cannot be marked twice', () => {
+        subject.mark(playerOne);
+        expect(() => subject.mark(playerTwo)).to.throw(Error);
+    });
 });
 

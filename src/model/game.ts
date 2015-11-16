@@ -1,5 +1,6 @@
 import Player from './player';
 import Board from './board';
+import Move from './move';
 
 export default class Game {
     private _players: Array<Player>;
@@ -29,12 +30,12 @@ export default class Game {
         return this._board;
     }
 
-    public mark(player: Player, x: number, y: number): void {
+    public performMove(player: Player, move: Move): void {
         if (player !== this._currentPlayer) {
             throw new Error('It\'s not this players turn');
         }
 
-        this._board.spaceAt(x, y).mark(player);
+        this._board.spaceAt(move.x, move.y).mark(player);
 
         this._currentPlayer = this._players.filter(p => p !== this._currentPlayer)[0];
     }

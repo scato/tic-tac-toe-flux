@@ -1,14 +1,18 @@
 import {ChoosePlayerAction} from './actions';
 import Player from '../model/player';
 import Game from '../model/game';
+import {Robot} from './robot';
+import Move from '../model/move';
 
 export default class GameStore {
     private _game: Game;
+    private _robot: Robot;
     private _humanPlayer: Player;
     private _robotPlayer: Player;
 
-    constructor() {
+    constructor(robot: Robot) {
         this._game = new Game();
+        this._robot = robot;
     }
 
     get game(): Game {
@@ -32,5 +36,11 @@ export default class GameStore {
 
         this._humanPlayer = player;
         this._robotPlayer = this._game.players.filter(p => p !== player)[0];
+
+        if (this._game.currentPlayer === this._robotPlayer) {
+            const move: Move = this._robot.chooseMove(this._game);
+
+            this._game.performMove(this._robotPlayer, move);
+        }
     }
 }
