@@ -31,4 +31,11 @@ describe('Game', () => {
 
         expect(() => subject.performMove(subject.players[0], new Move(1, 0))).to.throw(Error);
     });
+
+    it('lets robots know if a move is valid', () => {
+        subject.performMove(subject.players[0], new Move(0, 0));
+
+        expect(subject.isValidMove(new Move(0, 0))).to.equal(false);
+        expect(subject.isValidMove(new Move(1, 0))).to.equal(true);
+    });
 });

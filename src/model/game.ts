@@ -39,4 +39,8 @@ export default class Game {
 
         this._currentPlayer = this._players.filter(p => p !== this._currentPlayer)[0];
     }
+
+    public isValidMove(move: Move): boolean {
+        return !this._board.spaceAt(move.x, move.y).marked;
+    }
 }
