@@ -1,8 +1,27 @@
 var ChoosePlayerAction = require('../../src/app/actions').ChoosePlayerAction;
+var PerformMoveAction = require('../../src/app/actions').PerformMoveAction;
 
 module.exports = function () {
     this.When(/^I choose to be player "([^"]*)"$/, function (name, callback) {
         this.gameStore.onChoosePlayer(new ChoosePlayerAction(name));
+
+        callback();
+    });
+
+    this.When(/^I mark the ([^ ]*) ([^ ]*) space$/, function (vertical, horizontal, callback) {
+        var ys = {
+            lower: 0,
+            middle: 1,
+            upper: 2
+        };
+
+        var xs = {
+            left: 0,
+            center: 1,
+            right: 2
+        };
+
+        this.gameStore.onPerformMove(new PerformMoveAction(xs[horizontal], ys[vertical]));
 
         callback();
     });
