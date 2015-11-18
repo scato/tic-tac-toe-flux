@@ -2,7 +2,7 @@
 import {expect} from 'chai';
 import {mock} from 'sinon';
 import GameStore from '../../src/app/game-store';
-import {ChoosePlayerAction} from '../../src/app/actions';
+import {ChoosePlayerAction, PerformMoveAction} from '../../src/app/actions';
 import {Robot} from '../../src/app/robot';
 import SinonMock = Sinon.SinonMock;
 import Move from '../../src/model/move';
@@ -32,5 +32,16 @@ describe('GameStore', () => {
         subject.onChoosePlayer(new ChoosePlayerAction('O'));
 
         expect(subject.game.board.spaceAt(1, 1).marked).to.equal(true);
+    });
+
+    it('lets you perform moves (and makes the robot respond)', () => {
+        robotMock.expects('chooseMove').withArgs(subject.game).returns(new Move(1, 1));
+
+        subject.onChoosePlayer(new ChoosePlayerAction('X'));
+        subject.onPerformMove(new PerformMoveAction(1, 2));
+
+        expect(subject.game.board.spaceAt(1, 1).marked).to.equal(true);
+        expect(subject.game.board.spaceAt(1, 2).marked).to.equal(true);
+        expect(subject.game.currentPlayer).to.equal(subject.humanPlayer);
     });
 });

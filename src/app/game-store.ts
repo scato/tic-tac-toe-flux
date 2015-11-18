@@ -1,4 +1,4 @@
-import {ChoosePlayerAction} from './actions';
+import {ChoosePlayerAction, PerformMoveAction} from './actions';
 import Player from '../model/player';
 import Game from '../model/game';
 import {Robot} from './robot';
@@ -37,6 +37,22 @@ export default class GameStore {
         this._humanPlayer = player;
         this._robotPlayer = this._game.players.filter(p => p !== player)[0];
 
+        this.performRobotMove();
+    }
+
+    public onPerformMove(action: PerformMoveAction): void {
+        if (this._humanPlayer === undefined) {
+            throw new Error('Player was not chosen yet');
+        }
+
+        const move: Move = new Move(action.x, action.y);
+
+        this._game.performMove(this._humanPlayer, move);
+
+        this.performRobotMove();
+    }
+
+    private performRobotMove(): void {
         if (this._game.currentPlayer === this._robotPlayer) {
             const move: Move = this._robot.chooseMove(this._game);
 
