@@ -2,6 +2,13 @@ import Player from './player';
 import Board from './board';
 import Move from './move';
 
+export enum Outcome {
+    NONE,
+    X_WINS,
+    O_WINS,
+    DRAW
+}
+
 export default class Game {
     private _players: Array<Player>;
     private _currentPlayer: Player;
@@ -28,6 +35,22 @@ export default class Game {
 
     get board(): Board {
         return this._board;
+    }
+
+    get outcome(): Outcome {
+        if (this._board.hasRowMarkedBy(this._players[0])) {
+            return Outcome.X_WINS;
+        }
+
+        if (this._board.hasRowMarkedBy(this._players[1])) {
+            return Outcome.O_WINS;
+        }
+
+        if (!this._board.hasSpaceLeft()) {
+            return Outcome.DRAW;
+        }
+
+        return Outcome.NONE;
     }
 
     public performMove(player: Player, move: Move): void {

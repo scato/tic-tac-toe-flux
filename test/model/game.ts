@@ -1,7 +1,10 @@
 /// <reference path="../../typings/tsd.d.ts" />
 import {expect} from 'chai';
+import {mock} from 'sinon';
 import Game from '../../src/model/game';
 import Move from '../../src/model/move';
+import {Outcome} from '../../src/model/game';
+import SinonMock = Sinon.SinonMock;
 
 describe('Game', () => {
     let subject: Game;
@@ -17,10 +20,12 @@ describe('Game', () => {
     });
 
     it('lets players mark spaces', () => {
-        expect(subject.board.spaceAt(0, 0).marked).to.equal(false);
+        const spaceMock: SinonMock = mock(subject.board.spaceAt(0, 0));
+        spaceMock.expects('mark').once().withArgs(subject.players[0]);
 
         subject.performMove(subject.players[0], new Move(0, 0));
-        expect(subject.board.spaceAt(0, 0).marked).to.equal(true);
+
+        spaceMock.verify();
     });
 
     it('lets players take turns marking the spaces', () => {
@@ -37,5 +42,39 @@ describe('Game', () => {
 
         expect(subject.isValidMove(new Move(0, 0))).to.equal(false);
         expect(subject.isValidMove(new Move(1, 0))).to.equal(true);
+    });
+
+    it('starts with no outcome', () => {
+        expect(subject.outcome).to.equal(Outcome.NONE);
+    });
+
+    it('ends with player X winning if he marked an entire row', () => {
+        const boardMock: SinonMock = mock(subject.board);
+
+        boardMock.expects('hasRowMarkedBy').withArgs(subject.players[0]).returns(true);
+        boardMock.expects('hasRowMarkedBy').withArgs(subject.players[1]).returns(false);
+        boardMock.expects('hasSpaceLeft').withArgs().returns(true);
+
+        expect(subject.outcome).to.equal(Outcome.X_WINS);
+    });
+
+    it('ends with player O winning if he marked an entire row', () => {
+        const boardMock: SinonMock = mock(subject.board);
+
+        boardMock.expects('hasRowMarkedBy').withArgs(subject.players[0]).returns(false);
+        boardMock.expects('hasRowMarkedBy').withArgs(subject.players[1]).returns(true);
+        boardMock.expects('hasSpaceLeft').withArgs().returns(true);
+
+        expect(subject.outcome).to.equal(Outcome.O_WINS);
+    });
+
+    it('ends in a draw if no player manages to mark an entire row', () => {
+        const boardMock: SinonMock = mock(subject.board);
+
+        boardMock.expects('hasRowMarkedBy').withArgs(subject.players[0]).returns(false);
+        boardMock.expects('hasRowMarkedBy').withArgs(subject.players[1]).returns(false);
+        boardMock.expects('hasSpaceLeft').withArgs().returns(false);
+
+        expect(subject.outcome).to.equal(Outcome.DRAW);
     });
 });
