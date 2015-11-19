@@ -1,8 +1,8 @@
 var GameStore = require('../../src/app/game-store').default;
-var Random = require('../../src/robot/random').default;
+var First = require('../../src/robot/first').default;
 
 function World() {
-    this.gameStore = new GameStore(new Random());
+    this.gameStore = new GameStore(new First());
 }
 
 module.exports = function () {
