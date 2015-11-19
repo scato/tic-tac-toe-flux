@@ -18,10 +18,14 @@ describe('BoardHelper', () => {
         space = <any> createStubInstance(Space);
     });
 
+    afterEach(() => {
+        boardMock.verify();
+    });
+
     it('builds horizontal rows', () => {
-        boardMock.expects('spaceAt').withArgs(0, 1).returns(space);
-        boardMock.expects('spaceAt').withArgs(1, 1).returns(space);
-        boardMock.expects('spaceAt').withArgs(2, 1).returns(space);
+        boardMock.expects('spaceAt').once().withArgs(0, 1).returns(space);
+        boardMock.expects('spaceAt').once().withArgs(1, 1).returns(space);
+        boardMock.expects('spaceAt').once().withArgs(2, 1).returns(space);
 
         expect(subject.horizontalRowAt(1)).to.be.instanceof(Row);
         expect(() => subject.horizontalRowAt(-1)).to.throw(RangeError);
@@ -29,9 +33,9 @@ describe('BoardHelper', () => {
     });
 
     it('builds vertical rows', () => {
-        boardMock.expects('spaceAt').withArgs(1, 0).returns(space);
-        boardMock.expects('spaceAt').withArgs(1, 1).returns(space);
-        boardMock.expects('spaceAt').withArgs(1, 2).returns(space);
+        boardMock.expects('spaceAt').once().withArgs(1, 0).returns(space);
+        boardMock.expects('spaceAt').once().withArgs(1, 1).returns(space);
+        boardMock.expects('spaceAt').once().withArgs(1, 2).returns(space);
 
         expect(subject.verticalRowAt(1)).to.be.instanceof(Row);
         expect(() => subject.verticalRowAt(-1)).to.throw(RangeError);
@@ -39,9 +43,9 @@ describe('BoardHelper', () => {
     });
 
     it('builds diagonal rows', () => {
-        boardMock.expects('spaceAt').withArgs(0, 2).returns(space);
-        boardMock.expects('spaceAt').withArgs(1, 1).returns(space);
-        boardMock.expects('spaceAt').withArgs(2, 0).returns(space);
+        boardMock.expects('spaceAt').once().withArgs(0, 2).returns(space);
+        boardMock.expects('spaceAt').once().withArgs(1, 1).returns(space);
+        boardMock.expects('spaceAt').once().withArgs(2, 0).returns(space);
 
         expect(subject.diagonalRowAt(-1)).to.be.instanceof(Row);
         expect(() => subject.diagonalRowAt(-2)).to.throw(RangeError);
