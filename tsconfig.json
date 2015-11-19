@@ -3,6 +3,10 @@
     "module": "commonjs",
     "target": "es5"
   },
-  "files": [
+  "compileOnSave": false,
+  "files": [],
+  "filesGlob": [
+    "src/**/*.ts",
+    "test/**/*.ts"
   ]
 }
