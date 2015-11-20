@@ -1,21 +1,41 @@
 var Outcome = require('../../src/model/game').Outcome;
 
 module.exports = function () {
-    this.Then(/^I win the game$/, function (callback) {
-        var expectedOutcome;
-
-        if (this.gameStore.humanPlayer.name === 'X') {
-            expectedOutcome = Outcome.X_WINS;
+    function outcomeForWinner(name) {
+        if (name === 'X') {
+            return Outcome.X_WINS;
         } else {
-            expectedOutcome = Outcome.O_WINS;
+            return Outcome.O_WINS;
         }
+    }
 
-        if (this.gameStore.game.outcome !== expectedOutcome) {
+    function checkOutcome(actual, expected) {
+        if (actual !== expected) {
             throw new Error(
-                'Expected outcome to be ' + Outcome[expectedOutcome] +
-                ', not ' + Outcome[this.gameStore.game.outcome]
+                'Expected outcome to be ' + Outcome[expected] +
+                ', not ' + Outcome[actual]
             );
         }
+    }
+
+    this.Then(/^I win the game$/, function (callback) {
+        var expectedOutcome = outcomeForWinner(this.gameStore.humanPlayer.name);
+
+        checkOutcome(this.gameStore.game.outcome(), expectedOutcome);
+
+        callback();
+    });
+
+    this.Then(/^I lose the game$/, function (callback) {
+        var expectedOutcome = outcomeForWinner(this.gameStore.robotPlayer.name);
+
+        checkOutcome(this.gameStore.game.outcome(), expectedOutcome);
+
+        callback();
+    });
+
+    this.Then(/^the game ends in a draw$/, function (callback) {
+        checkOutcome(this.gameStore.game.outcome(), Outcome.DRAW);
 
         callback();
     });
