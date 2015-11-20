@@ -46,7 +46,7 @@ describe('Game', () => {
     });
 
     it('starts with no outcome', () => {
-        expect(subject.outcome).to.equal(Outcome.NONE);
+        expect(subject.outcome()).to.equal(Outcome.NONE);
     });
 
     it('ends with player X winning if he marked an entire row', () => {
@@ -54,7 +54,7 @@ describe('Game', () => {
         boardStub.expects('hasRowMarkedBy').withArgs(subject.players[1]).returns(false);
         boardStub.expects('hasSpaceLeft').withArgs().returns(true);
 
-        expect(subject.outcome).to.equal(Outcome.X_WINS);
+        expect(subject.outcome()).to.equal(Outcome.X_WINS);
     });
 
     it('ends with player O winning if he marked an entire row', () => {
@@ -62,7 +62,7 @@ describe('Game', () => {
         boardStub.expects('hasRowMarkedBy').withArgs(subject.players[1]).returns(true);
         boardStub.expects('hasSpaceLeft').withArgs().returns(true);
 
-        expect(subject.outcome).to.equal(Outcome.O_WINS);
+        expect(subject.outcome()).to.equal(Outcome.O_WINS);
     });
 
     it('ends in a draw if no player manages to mark an entire row', () => {
@@ -70,6 +70,6 @@ describe('Game', () => {
         boardStub.expects('hasRowMarkedBy').withArgs(subject.players[1]).returns(false);
         boardStub.expects('hasSpaceLeft').withArgs().returns(false);
 
-        expect(subject.outcome).to.equal(Outcome.DRAW);
+        expect(subject.outcome()).to.equal(Outcome.DRAW);
     });
 });

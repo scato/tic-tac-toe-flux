@@ -37,7 +37,7 @@ export default class Game {
         return this._board;
     }
 
-    get outcome(): Outcome {
+    public outcome(): Outcome {
         if (this._board.hasRowMarkedBy(this._players[0])) {
             return Outcome.X_WINS;
         }
