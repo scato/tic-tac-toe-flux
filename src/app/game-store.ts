@@ -1,6 +1,7 @@
 import {ChoosePlayerAction, PerformMoveAction} from './actions';
 import Player from '../model/player';
 import Game from '../model/game';
+import {Outcome} from '../model/game';
 import {Robot} from './robot';
 import Move from '../model/move';
 
@@ -53,6 +54,10 @@ export default class GameStore {
     }
 
     private performRobotMove(): void {
+        if (this._game.outcome() !== Outcome.NONE) {
+            return;
+        }
+
         if (this._game.currentPlayer === this._robotPlayer) {
             const move: Move = this._robot.chooseMove(this._game);
 
