@@ -8,11 +8,11 @@ import SinonMock = Sinon.SinonMock;
 import Move from '../../src/model/move';
 
 describe('GameStore', () => {
-    let subject: GameStore, robot: Robot, robotMock: SinonMock;
+    let subject: GameStore, robot: Robot, robotStub: SinonMock;
 
     beforeEach(() => {
         robot = <any> { chooseMove: () => undefined };
-        robotMock = mock(robot);
+        robotStub = mock(robot);
         subject = new GameStore(robot);
     });
 
@@ -27,7 +27,7 @@ describe('GameStore', () => {
     });
 
     it('makes the robot mark spaces', () => {
-        robotMock.expects('chooseMove').withArgs(subject.game).returns(new Move(1, 1));
+        robotStub.expects('chooseMove').withArgs(subject.game).returns(new Move(1, 1));
 
         subject.onChoosePlayer(new ChoosePlayerAction('O'));
 
@@ -35,7 +35,7 @@ describe('GameStore', () => {
     });
 
     it('lets you perform moves (and makes the robot respond)', () => {
-        robotMock.expects('chooseMove').withArgs(subject.game).returns(new Move(1, 1));
+        robotStub.expects('chooseMove').withArgs(subject.game).returns(new Move(1, 1));
 
         subject.onChoosePlayer(new ChoosePlayerAction('X'));
         subject.onPerformMove(new PerformMoveAction(1, 2));
