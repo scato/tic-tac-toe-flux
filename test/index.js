@@ -1,3 +1,3 @@
-const context = require.context('./', true, /(app|cli|model)\/.*(js|ts)$/);
+const context = require.context('./', true, /\.ts$/);
 
 context.keys().forEach(context);
