@@ -1,6 +1,7 @@
 var sinon = require('sinon');
 var expect = require('chai').expect;
 var inquirer = require('inquirer');
+var prompt = require('../../src/cli/prompt');
 
 describe('choose-player', () => {
     function capture(body) {
@@ -22,18 +23,7 @@ describe('choose-player', () => {
 
     it('should ask the user to choose a player', () => {
         return capture(input => {
-            var answer = new Promise((resolve, reject) => {
-                inquirer.prompt([
-                    {
-                        type: 'list',
-                        name: 'player',
-                        message: 'Choose a player',
-                        choices: ['X', 'O']
-                    }
-                ], function(answers) {
-                    resolve(answers.player);
-                });
-            });
+            var answer = prompt.choosePlayer();
 
             input('\n');
 
@@ -41,6 +31,21 @@ describe('choose-player', () => {
         }).then(result => {
             expect(result.value).to.equal('X');
             expect(result.output.calledWithMatch('Choose a player')).to.equal(true);
+        });
+    });
+
+    it('should ask the user to choose a space', () => {
+        return capture(input => {
+            var freeSpaces = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+            var answer = prompt.chooseSpace(freeSpaces);
+
+            input('1\n');
+
+            return answer;
+        }).then(result => {
+            expect(result.value).to.equal(1);
+            expect(result.output.calledWithMatch('Which space do you want to mark?'));
         });
     });
 });

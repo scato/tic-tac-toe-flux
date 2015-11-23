@@ -4,7 +4,8 @@
   "description": "MV* with a bit more logic",
   "scripts": {
     "test": "webpack && mocha build/test.js",
-    "accept": "cucumber-js --compiler ts:ts-node/register"
+    "accept-test": "cucumber-js --compiler ts:ts-node/register",
+    "int-test": "mocha test/cli --require ts-node/register"
   },
   "repository": {
     "type": "git",
