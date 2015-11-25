@@ -3,7 +3,7 @@ var expect = require('chai').expect;
 var inquirer = require('inquirer');
 var prompt = require('../../src/cli/prompt');
 
-describe('choose-player', () => {
+describe('prompt', () => {
     function capture(body) {
         return new Promise((resolve, reject) => {
             var input = data => process.stdin.emit('data', data);
