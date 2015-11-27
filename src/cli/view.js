@@ -7,7 +7,7 @@ var colorsByPlayerName = {
     'O': 'cyan'
 };
 
-exports.showSpace = (game, coordinates) => {
+exports.renderSpace = (game, coordinates) => {
     var color;
 
     for (player of game.players) {
@@ -21,7 +21,7 @@ exports.showSpace = (game, coordinates) => {
     return chalk.dim(String(helper.coordinatesToIndex(coordinates)));
 };
 
-exports.showBoard = game => {
+exports.renderBoard = game => {
     var xs = _.range(game.board.width);
     var ys = _.range(game.board.height).reverse();
 
@@ -32,7 +32,7 @@ exports.showBoard = game => {
 
     return ys.map(
         y => xs.map(
-            x => ' ' + exports.showSpace(game, {x: x, y: y}) + ' '
+            x => ' ' + exports.renderSpace(game, {x: x, y: y}) + ' '
         ).join(verticalSeparator)
     ).join('\n' + rowSeparator + '\n');
 };
