@@ -1,3 +1,4 @@
+import {EventEmitter} from 'events';
 import {ChoosePlayerAction, PerformMoveAction} from './actions';
 import Player from '../model/player';
 import Game from '../model/game';
@@ -5,13 +6,15 @@ import {Outcome} from '../model/game';
 import {Robot} from './robot';
 import Move from '../model/move';
 
-export default class GameStore {
+export default class GameStore extends EventEmitter {
     private _game: Game;
     private _robot: Robot;
     private _humanPlayer: Player;
     private _robotPlayer: Player;
 
     constructor(robot: Robot) {
+        super();
+
         this._game = new Game();
         this._robot = robot;
     }
@@ -39,6 +42,8 @@ export default class GameStore {
         this._robotPlayer = this._game.players.filter(p => p !== player)[0];
 
         this.performRobotMove();
+
+        this.emit('change');
     }
 
     public onPerformMove(action: PerformMoveAction): void {
@@ -51,6 +56,8 @@ export default class GameStore {
         this._game.performMove(this._humanPlayer, move);
 
         this.performRobotMove();
+
+        this.emit('change');
     }
 
     private performRobotMove(): void {

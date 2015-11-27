@@ -1,20 +1,23 @@
 /// <reference path="../../typings/tsd.d.ts" />
 import {expect} from 'chai';
-import {mock} from 'sinon';
+import {mock, spy} from 'sinon';
 import GameStore from '../../src/app/game-store';
 import {ChoosePlayerAction, PerformMoveAction} from '../../src/app/actions';
 import {Robot} from '../../src/app/robot';
 import SinonMock = Sinon.SinonMock;
+import SinonSpy = Sinon.SinonSpy;
 import Move from '../../src/model/move';
 import {Outcome} from '../../src/model/game';
 
 describe('GameStore', () => {
-    let subject: GameStore, robot: Robot, robotMock: SinonMock;
+    let subject: GameStore, robot: Robot, robotMock: SinonMock, onChange: SinonSpy;
 
     beforeEach(() => {
         robot = <any> { chooseMove: () => undefined };
         robotMock = mock(robot);
         subject = new GameStore(robot);
+        onChange = spy();
+        subject.on('change', onChange);
     });
 
     afterEach(() => {
@@ -29,6 +32,8 @@ describe('GameStore', () => {
         expect(subject.humanPlayer.name).to.equal('X');
         expect(subject.robotPlayer.name).to.equal('O');
         expect(subject.game.currentPlayer).to.equal(subject.humanPlayer);
+
+        expect(onChange.callCount).to.equal(1);
     });
 
     it('makes the robot mark spaces', () => {
@@ -37,6 +42,8 @@ describe('GameStore', () => {
         subject.onChoosePlayer(new ChoosePlayerAction('O'));
 
         expect(subject.game.board.spaceAt(1, 1).marked).to.equal(true);
+
+        expect(onChange.callCount).to.equal(1);
     });
 
     it('lets you perform moves (and makes the robot respond)', () => {
@@ -48,6 +55,8 @@ describe('GameStore', () => {
         expect(subject.game.board.spaceAt(1, 1).marked).to.equal(true);
         expect(subject.game.board.spaceAt(1, 2).marked).to.equal(true);
         expect(subject.game.currentPlayer).to.equal(subject.humanPlayer);
+
+        expect(onChange.callCount).to.equal(2);
     });
 
     it('stops making the robot mark spaces when the game is finished', () => {
@@ -57,5 +66,7 @@ describe('GameStore', () => {
 
         subject.onChoosePlayer(new ChoosePlayerAction('X'));
         subject.onPerformMove(new PerformMoveAction(1, 1));
+
+        expect(onChange.callCount).to.equal(2);
     });
 });
