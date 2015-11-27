@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var chalk = require('chalk');
 var helper = require('./helper');
+var Outcome = require('../model/game').Outcome;
 
 var colorsByPlayerName = {
     'X': 'yellow',
@@ -35,4 +36,17 @@ exports.renderBoard = game => {
             x => ' ' + exports.renderSpace(game, {x: x, y: y}) + ' '
         ).join(verticalSeparator)
     ).join('\n' + rowSeparator + '\n');
+};
+
+exports.renderOutcome = game => {
+    switch (game.outcome()) {
+        case Outcome.X_WINS:
+            return 'X wins!';
+        case Outcome.O_WINS:
+            return 'O wins!';
+        case Outcome.DRAW:
+            return 'It\'s a draw!';
+        default:
+            return '';
+    }
 };

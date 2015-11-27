@@ -1,7 +1,9 @@
 var expect = require('chai').expect;
+var mock = require('sinon').mock;
 var chalk = require('chalk');
 var view = require('../../src/cli/view');
 var Game = require('../../src/model/game').default;
+var Outcome = require('../../src/model/game').Outcome;
 
 describe('view', () => {
     describe('renderSpace', () => {
@@ -79,6 +81,42 @@ describe('view', () => {
             actual = chalk.stripColor(view.renderBoard(game));
 
             expect(actual).to.equal(expected);
+        });
+    });
+
+    describe('renderOutcome', () => {
+        beforeEach(() => {
+            game = new Game();
+        });
+
+        it('should render a victory by X', () => {
+            var actual;
+
+            mock(game).expects('outcome').withArgs().returns(Outcome.X_WINS);
+
+            actual = view.renderOutcome(game);
+
+            expect(actual).to.equal('X wins!');
+        });
+
+        it('should render a victory by O', () => {
+            var actual;
+
+            mock(game).expects('outcome').withArgs().returns(Outcome.O_WINS);
+
+            actual = view.renderOutcome(game);
+
+            expect(actual).to.equal('O wins!');
+        });
+
+        it('should render a draw', () => {
+            var actual;
+
+            mock(game).expects('outcome').withArgs().returns(Outcome.DRAW);
+
+            actual = view.renderOutcome(game);
+
+            expect(actual).to.equal('It\'s a draw!');
         });
     });
 });
