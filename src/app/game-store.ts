@@ -1,3 +1,4 @@
+/// <reference path="../../typings/tsd.d.ts" />
 import {EventEmitter} from 'events';
 import {ChoosePlayerAction, PerformMoveAction} from './actions';
 import Player from '../model/player';

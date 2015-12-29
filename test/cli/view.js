@@ -6,6 +6,17 @@ var Game = require('../../src/model/game').default;
 var Outcome = require('../../src/model/game').Outcome;
 
 describe('view', () => {
+    describe('renderWelcome', () => {
+        it('should render a welcoming message', () => {
+            var expected, actual;
+
+            expected = 'Welcome to tic-tac-toe';
+            actual = view.renderWelcome();
+
+            expect(actual).to.equal(expected);
+        });
+    });
+
     describe('renderSpace', () => {
         var game;
 

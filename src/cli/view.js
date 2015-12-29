@@ -8,6 +8,10 @@ var colorsByPlayerName = {
     'O': 'cyan'
 };
 
+exports.renderWelcome = () => {
+    return 'Welcome to tic-tac-toe';
+};
+
 exports.renderSpace = (game, coordinates) => {
     var color;
 
