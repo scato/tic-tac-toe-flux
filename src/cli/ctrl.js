@@ -1,9 +1,9 @@
 var actions = require('../app/actions');
 
-exports.create = (gameStore, prompt, view, log, helper) => {
+exports.create = (prompt, view, log, helper) => {
     var ctrl = {};
 
-    ctrl.showStart = () => {
+    ctrl.showStart = gameStore => {
         log(view.renderWelcome());
 
         return prompt.choosePlayer().then(value => {
@@ -13,7 +13,7 @@ exports.create = (gameStore, prompt, view, log, helper) => {
         });
     };
 
-    ctrl.showBoard = () => {
+    ctrl.showBoard = gameStore => {
         log(view.renderBoard(gameStore.game));
 
         return prompt.chooseSpace(helper.freeSpaces(gameStore.game.board)).then(value => {
@@ -24,7 +24,8 @@ exports.create = (gameStore, prompt, view, log, helper) => {
         });
     };
 
-    ctrl.showOutcome = () => {
+    ctrl.showOutcome = gameStore => {
+        log(view.renderBoard(gameStore.game));
         log(view.renderOutcome(gameStore.game));
 
         return Promise.resolve();

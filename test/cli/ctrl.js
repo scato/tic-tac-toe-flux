@@ -11,6 +11,7 @@ describe('ctrl', () => {
     beforeEach(() => {
         gameStore = new GameStore();
         gameStoreMock = sinon.mock(gameStore);
+
         prompt = {
             choosePlayer: sinon.stub(),
             chooseSpace: sinon.stub()
@@ -26,7 +27,7 @@ describe('ctrl', () => {
             indexToCoordinates: sinon.stub()
         };
 
-        subject = ctrl.create(gameStore, prompt, view, log, helper);
+        subject = ctrl.create(prompt, view, log, helper);
     });
 
     it('should show a welcoming message', () => {
@@ -35,7 +36,7 @@ describe('ctrl', () => {
 
         gameStoreMock.expects('onChoosePlayer');
 
-        return subject.showStart().then(() => {
+        return subject.showStart(gameStore).then(() => {
             expect(log.calledWith('WELCOME')).to.equal(true);
         });
     });
@@ -48,7 +49,7 @@ describe('ctrl', () => {
         action = new actions.ChoosePlayerAction('X');
         gameStoreMock.expects('onChoosePlayer').once().withArgs(sinon.match(action));
 
-        return subject.showStart().then(() => {
+        return subject.showStart(gameStore).then(() => {
             gameStoreMock.verify();
         });
     });
@@ -61,7 +62,7 @@ describe('ctrl', () => {
 
         gameStoreMock.expects('onPerformMove');
 
-        return subject.showBoard(gameStore.game).then(() => {
+        return subject.showBoard(gameStore).then(() => {
             expect(log.calledWith('BOARD')).to.equal(true);
         });
     });
@@ -77,15 +78,17 @@ describe('ctrl', () => {
         action = new actions.PerformMoveAction(0, 2);
         gameStoreMock.expects('onPerformMove').once().withArgs(sinon.match(action));
 
-        return subject.showBoard().then(() => {
+        return subject.showBoard(gameStore).then(() => {
             gameStoreMock.verify();
         });
     });
 
-    it('should show the outcome', () => {
+    it('should show the final board, as well as the outcome', () => {
+        view.renderBoard.withArgs(gameStore.game).returns('BOARD');
         view.renderOutcome.withArgs(gameStore.game).returns('OUTCOME');
 
-        return subject.showOutcome(gameStore.game).then(() => {
+        return subject.showOutcome(gameStore).then(() => {
+            expect(log.calledWith('BOARD')).to.equal(true);
             expect(log.calledWith('OUTCOME')).to.equal(true);
         });
     });
