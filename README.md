@@ -7,7 +7,7 @@ This repository is a demonstration of what I call Hexagonal Flux. This is a comb
 
 And the principles of the Flux Architecture:
 
-> When a user interacts with a React view, the view propagates an action through a central dispatcher, to the various stores that hold the application's data and business logic, which updates all of the views that are affected. (...) Stores have no direct setter methods like `setAsRead()`, but instead have only a single way of getting new data into their self-contained world -- the callback they register with the dispatcher.
+> When a user interacts with a React view, the view propagates an action through a central dispatcher, to the various stores that hold the application's data and business logic, which updates all of the views that are affected. (...) Stores have no direct setter methods like `setAsRead()`, but instead have only a single way of getting new data into their self-contained world - the callback they register with the dispatcher.
 
 This does not only work with graphic user interfaces, but with command line interfaces as well.
 
